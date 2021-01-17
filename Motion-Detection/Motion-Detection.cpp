@@ -1,20 +1,47 @@
-// Motion-Detection.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include "Image.h"
+#include "Comparer.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
+bool pick_accelerator()
+{
+	std::vector<accelerator> accs = accelerator::get_all();
+	accelerator chosen_one;
+
+	auto result = std::find_if(accs.begin(), accs.end(),
+		[](const accelerator& acc)
+		{
+			return !acc.is_emulated &&
+				acc.supports_double_precision &&
+				!acc.has_display;
+		});
+
+	if (result != accs.end())
+	{
+		chosen_one = *(result);
+	}
+
+	std::wcout << chosen_one.description << std::endl;
+	bool success = accelerator::set_default(chosen_one.device_path);
+	return success;
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	pick_accelerator();
+
+	printf("Loading images\n");
+
+    const char* s1 = "./image1.png";
+    Image i1((char*)s1,1920,1080);
+
+    const char* s2 = "./image2.png";
+    Image i2((char*)s2, 1920, 1080);
+
+	printf("Calculating diff\n");
+
+    float diff = Comparer::getDifference(&i1, &i2);
+    printf("Differential of %f", diff);
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
