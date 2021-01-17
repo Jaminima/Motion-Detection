@@ -3,6 +3,8 @@
 #include <filesystem>
 #include "Image.h"
 #include "Comparer.h"
+#include "List.h"
+#include "Const.h"
 
 const std::string imgpath = "./Images/";
 
@@ -12,18 +14,23 @@ inline bool fileExists(const std::string& name) {
 	return (stat(file.c_str(), &buffer) == 0);
 }
 
-void FindAndCompareFiles() {
-	Image *lastimg = new Image((imgpath + "1.png").c_str(),1920,1080);
+
+List* FindAndCompareFiles() {
+	List* l = new List();
+	Image *lastimg = new Image((imgpath + "1.png").c_str(),px,py);
 
 	for (unsigned int i = 2;fileExists(std::to_string(i)+".png"); i++) {
 		std::string file = imgpath + std::to_string(i) + ".png";
-		Image *img = new Image(file.c_str(),1920,1080);
+		Image *img = new Image(file.c_str(),px,py);
 
 		float diff = Comparer::getDifference(img, lastimg);
 
-		printf("Frame %i Diff %f\n", i, diff);
+		printf("%i,%f\n", i, diff);
+		l->Add(new float (diff));
 
 		delete lastimg;
 		lastimg = img;
 	}
+
+	return l;
 }

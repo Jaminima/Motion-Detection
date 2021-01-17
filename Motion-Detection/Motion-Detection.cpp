@@ -33,7 +33,9 @@ int main()
 {
 	pick_accelerator();
 
-	FindAndCompareFiles();
+	List* l = FindAndCompareFiles();
+
+	float** dif = (float**)l->ToArray();
 
 	/*printf("Loading images\n");
 

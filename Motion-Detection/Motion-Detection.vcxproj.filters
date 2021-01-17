@@ -27,5 +27,9 @@
     </ClInclude>
     <ClInclude Include="Comparer.h" />
     <ClInclude Include="FileFinder.h" />
+    <ClInclude Include="List.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h" />
   </ItemGroup>
 </Project>

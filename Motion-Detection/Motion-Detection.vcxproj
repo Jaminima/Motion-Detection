@@ -148,8 +148,10 @@
   <ItemGroup>
     <ClInclude Include="Color.h" />
     <ClInclude Include="Comparer.h" />
+    <ClInclude Include="Const.h" />
     <ClInclude Include="FileFinder.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
