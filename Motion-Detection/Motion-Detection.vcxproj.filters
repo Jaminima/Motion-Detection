@@ -26,5 +26,6 @@
       <Filter>Libraries</Filter>
     </ClInclude>
     <ClInclude Include="Comparer.h" />
+    <ClInclude Include="FileFinder.h" />
   </ItemGroup>
 </Project>

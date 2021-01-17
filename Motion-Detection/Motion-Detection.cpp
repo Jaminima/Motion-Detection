@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Image.h"
+#include "FileFinder.h"
 #include "Comparer.h"
 
 #define STB_IMAGE_IMPLEMENTATION
@@ -32,7 +33,9 @@ int main()
 {
 	pick_accelerator();
 
-	printf("Loading images\n");
+	FindAndCompareFiles();
+
+	/*printf("Loading images\n");
 
     const char* s1 = "./image1.png";
     Image i1((char*)s1,1920,1080);
@@ -43,5 +46,5 @@ int main()
 	printf("Calculating diff\n");
 
     float diff = Comparer::getDifference(&i1, &i2);
-    printf("Differential of %f", diff);
+    printf("Differential of %f", diff);*/
 }
