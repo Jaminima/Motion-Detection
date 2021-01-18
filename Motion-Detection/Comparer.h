@@ -26,7 +26,7 @@ public:
 			i = i->Next;
 		}
 
-		return (sum / l->Length) * 0.5f;
+		return (sum / l->Length) * 0.9f;
 	}
 
 	static float getDifference(Image *image1, Image *image2) {
