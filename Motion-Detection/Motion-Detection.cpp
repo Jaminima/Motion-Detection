@@ -29,13 +29,30 @@ bool pick_accelerator()
 	return success;
 }
 
+int compare(const void* a, const void* b)
+{
+	const int* x = (int*)a;
+	const int* y = (int*)b;
+
+	if (*x > *y)
+		return 1;
+	else if (*x < *y)
+		return -1;
+
+	return 0;
+}
+
 int main()
 {
 	pick_accelerator();
 
 	List* l = FindAndCompareFiles();
 
-	float f = Comparer::noiseReduction(l);
+	float** fs = (float**)l->ToArray();
+
+	std::qsort(fs, l->Length, sizeof(float), compare);
+
+	float f = Comparer::noiseReduction(fs, l->Length);
 
 	SaveToFile(l, f);
 }

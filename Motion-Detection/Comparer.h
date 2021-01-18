@@ -13,20 +13,10 @@ public:
 		return f - noiseReduction;
 	}
 
-	static float noiseReduction(List* l) {
-		Item* i = l->Head;
-		float f;
-
-		float sum=0;
-		while (i != 0x0) {
-			f = *(float*)i->Obj;
-			
-			sum += f;
-
-			i = i->Next;
-		}
-
-		return (sum / l->Length) * 0.9f;
+	static float noiseReduction(float** l, unsigned int length) {
+		int ind = length * 0.75;
+		if (length % 2 != 0) return (*l[ind] + *l[ind + 1]) / 2;
+		else return *l[ind];
 	}
 
 	static float getDifference(Image *image1, Image *image2) {
