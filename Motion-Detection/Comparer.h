@@ -1,5 +1,6 @@
 #pragma once
 #include "Image.h"
+#include "Const.h"
 #include <amp.h>
 
 using namespace Concurrency;

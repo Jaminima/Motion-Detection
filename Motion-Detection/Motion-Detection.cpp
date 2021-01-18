@@ -35,18 +35,5 @@ int main()
 
 	List* l = FindAndCompareFiles();
 
-	float** dif = (float**)l->ToArray();
-
-	/*printf("Loading images\n");
-
-    const char* s1 = "./image1.png";
-    Image i1((char*)s1,1920,1080);
-
-    const char* s2 = "./image2.png";
-    Image i2((char*)s2, 1920, 1080);
-
-	printf("Calculating diff\n");
-
-    float diff = Comparer::getDifference(&i1, &i2);
-    printf("Differential of %f", diff);*/
+	SaveToFile(l);
 }

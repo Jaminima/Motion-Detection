@@ -6,12 +6,32 @@
 #include "List.h"
 #include "Const.h"
 
+#include <iostream>
+#include <fstream>
+using namespace std;
+
 const std::string imgpath = "./Images/";
 
 inline bool fileExists(const std::string& name) {
 	std::string file = imgpath + name;
 	struct stat buffer;
 	return (stat(file.c_str(), &buffer) == 0);
+}
+
+void SaveToFile(List* l) {
+	ofstream file;
+	file.open("./Data.txt");
+
+	Item* i = l->Head;
+	float* p;
+	while (i != 0x0) {
+		p = (float*)i->Obj;
+		file << to_string(*p) << "\n";
+		i = i->Next;
+	}
+
+	file.flush();
+	file.close();
 }
 
 
