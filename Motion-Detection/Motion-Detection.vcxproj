@@ -141,7 +141,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Comparer.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Motion-Detection.cpp" />
   </ItemGroup>

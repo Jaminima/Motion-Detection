@@ -35,5 +35,7 @@ int main()
 
 	List* l = FindAndCompareFiles();
 
-	SaveToFile(l);
+	float f = Comparer::noiseReduction(l);
+
+	SaveToFile(l, f);
 }

@@ -13,7 +13,6 @@
     <ClCompile Include="Image.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Comparer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Image.h">

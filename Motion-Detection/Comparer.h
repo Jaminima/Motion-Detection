@@ -2,12 +2,33 @@
 #include "Image.h"
 #include "Const.h"
 #include <amp.h>
+#include "List.h"
 
 using namespace Concurrency;
 
 static class Comparer
 {
 public:
+	static float removeNoise(float f, float noiseReduction) {
+		return f - noiseReduction;
+	}
+
+	static float noiseReduction(List* l) {
+		Item* i = l->Head;
+		float f;
+
+		float sum=0;
+		while (i != 0x0) {
+			f = *(float*)i->Obj;
+			
+			sum += f;
+
+			i = i->Next;
+		}
+
+		return (sum / l->Length) * 0.5f;
+	}
+
 	static float getDifference(Image *image1, Image *image2) {
 		int x = image1->x, y = image1->y;
 		int size = x * y;

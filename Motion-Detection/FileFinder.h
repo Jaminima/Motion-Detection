@@ -18,7 +18,7 @@ inline bool fileExists(const std::string& name) {
 	return (stat(file.c_str(), &buffer) == 0);
 }
 
-void SaveToFile(List* l) {
+void SaveToFile(List* l, float noiseReduction) {
 	ofstream file;
 	file.open("./Data.txt");
 
@@ -26,7 +26,7 @@ void SaveToFile(List* l) {
 	float* p;
 	while (i != 0x0) {
 		p = (float*)i->Obj;
-		file << to_string(*p) << "\n";
+		file << to_string(Comparer::removeNoise(*p, noiseReduction)) << "\n";
 		i = i->Next;
 	}
 
