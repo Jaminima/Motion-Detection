@@ -19,36 +19,31 @@ inline bool fileExists(const std::string& name) {
 	return (stat(file.c_str(), &buffer) == 0);
 }
 
-void SaveToFile(List* l, float noiseReduction) {
+void SaveToFile(float* l, unsigned int size) {
 	ofstream file;
 	file.open("./Data.txt");
 
-	Item* i = l->Head;
-	float* p;
-	while (i != 0x0) {
-		p = (float*)i->Obj;
-		file << to_string(Comparer::removeNoise(*p, noiseReduction)) << "\n";
-		i = i->Next;
+	for (unsigned int i=0;i<size;i++){
+		file << to_string(l[i]) << "\n";
 	}
 
 	file.flush();
 	file.close();
 }
 
-void LoadFrame(Image** l, unsigned int i) {
+void LoadFrame(Color** l, unsigned int i) {
 	std::string file = imgpath + std::to_string(i) + ".png";
-	Image* img = new Image(file.c_str(), px, py);
+	Image img = Image(file.c_str());
 
-	l[i-1] = img;
+	l[i-1] = img.data;
 }
 
-Image** LoadAllFiles(const unsigned int imageCount) {
-	Image **images = new Image*[imageCount];
+Color** LoadAllFiles(const unsigned int imageCount) {
+	Color **images = new Color*[imageCount];
 	bool hasUnFilled = true;
 	unsigned int i = 1;
 
-	for (;fileExists(std::to_string(i)+".png"); i++) {
-		images[i - 1] = 0x0;
+	for (;/*fileExists(std::to_string(i)+".png")*/i<=imageCount; i++) {
 		std::thread t(LoadFrame,images,i);
 		t.detach();
 	}

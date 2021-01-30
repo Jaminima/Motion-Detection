@@ -1,4 +1,5 @@
 #include "Image.h"
+#include "Const.h"
 
 Image::~Image()
 {
@@ -9,17 +10,8 @@ Image::Image()
 {
 }
 
-Image::Image(int x, int y)
+Image::Image(const char* fileString)
 {
-	this->x = x;
-	this->y = y;
-	data = new Color[x*y];
-}
-
-Image::Image(const char* fileString, int x, int y)
-{
-	this->x = x;
-	this->y = y;
-	ogdata = stbi_load(fileString, &x, &y, new int(4), 4);
+	ogdata = stbi_load(fileString, new int(px), new int(py), new int(4), 4);
 	data = (Color*)ogdata;
 }

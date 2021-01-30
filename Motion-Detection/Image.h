@@ -14,8 +14,6 @@ public:
 
 	Image();
 
-	Image(int x, int y);
-
-	Image(const char* fileString, int x, int y);
+	Image(const char* fileString);
 };
 
