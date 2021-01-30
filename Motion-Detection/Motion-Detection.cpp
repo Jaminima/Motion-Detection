@@ -44,15 +44,15 @@ int compare(const void* a, const void* b)
 
 int main()
 {
-	pick_accelerator();
+	//pick_accelerator();
 
-	List* l = FindAndCompareFiles();
+	Image** l = LoadAllFiles(515);
 
-	float** fs = (float**)l->ToArray();
+	/*float** fs = (float**)l->ToArray();
 
 	std::qsort(fs, l->Length, sizeof(float), compare);
 
 	float f = Comparer::noiseReduction(fs, l->Length);
 
-	SaveToFile(l, f);
+	SaveToFile(l, f);*/
 }

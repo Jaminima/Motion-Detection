@@ -7,6 +7,7 @@
 #include "Const.h"
 
 #include <iostream>
+#include <thread>
 #include <fstream>
 using namespace std;
 
@@ -34,22 +35,29 @@ void SaveToFile(List* l, float noiseReduction) {
 	file.close();
 }
 
-List* FindAndCompareFiles() {
-	List* l = new List();
-	Image *lastimg = new Image((imgpath + "1.png").c_str(),px,py);
+void LoadFrame(Image** l, unsigned int i) {
+	std::string file = imgpath + std::to_string(i) + ".png";
+	Image* img = new Image(file.c_str(), px, py);
 
-	for (unsigned int i = 2;fileExists(std::to_string(i)+".png"); i++) {
-		std::string file = imgpath + std::to_string(i) + ".png";
-		Image *img = new Image(file.c_str(),px,py);
+	l[i-1] = img;
+}
 
-		float diff = Comparer::getDifference(img, lastimg);
+Image** LoadAllFiles(const unsigned int imageCount) {
+	Image **images = new Image*[imageCount];
+	bool hasUnFilled = true;
+	unsigned int i = 1;
 
-		printf("%i,%f\n", i, diff);
-		l->Add(new float (diff));
-
-		delete lastimg;
-		lastimg = img;
+	for (;fileExists(std::to_string(i)+".png"); i++) {
+		images[i - 1] = 0x0;
+		std::thread t(LoadFrame,images,i);
+		t.detach();
 	}
 
-	return l;
+	while (hasUnFilled) {
+		hasUnFilled = false;
+		for (unsigned int j = 0; j < i; j++) { if (images[j] == 0x0) hasUnFilled = true; }
+		this_thread::sleep_for(std::chrono::milliseconds(500)); 
+	}
+
+	return images;
 }
