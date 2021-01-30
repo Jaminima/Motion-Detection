@@ -14,7 +14,7 @@ public:
 	}
 
 	static float noiseReduction(float** l, unsigned int length) {
-		int ind = length * 0.75;
+		int ind = length * 0.75f;
 		if (length % 2 != 0) return (*l[ind] + *l[ind + 1]) / 2;
 		else return *l[ind];
 	}
@@ -33,8 +33,7 @@ public:
 			rgba1.extent,
 			[=](index<2> idx) restrict(amp)
 			{
-				Color d = rgba1[idx] - rgba2[idx];
-				diff[idx] = d.rgba;
+				diff[idx] = rgba1[idx] - rgba2[idx];
 			}
 		);
 

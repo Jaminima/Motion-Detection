@@ -34,7 +34,6 @@ void SaveToFile(List* l, float noiseReduction) {
 	file.close();
 }
 
-
 List* FindAndCompareFiles() {
 	List* l = new List();
 	Image *lastimg = new Image((imgpath + "1.png").c_str(),px,py);

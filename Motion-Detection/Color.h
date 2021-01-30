@@ -1,5 +1,10 @@
 #pragma once
 
+#include <amp.h>
+#include <amp_math.h>
+
+using namespace concurrency::fast_math;
+
 class Color
 {
 public:
@@ -20,7 +25,7 @@ public:
 		rgba |= ((b & 0xFF) << 16) | ((g & 0xFF) << 8) | ((r & 0xFF));
 	}
 
-	Color operator-(Color c) restrict(amp, cpu)
+	float operator-(Color c) restrict(amp, cpu)
 	{
 		unsigned int b1 = (rgba >> 16) & 0xFF,
 			g1 = (rgba >> 8) & 0xFF,
@@ -30,7 +35,8 @@ public:
 			g2 = (c.rgba >> 8) & 0xFF,
 			r2 = c.rgba & 0xFF;
 
-		return Color(r1 - r2, g1 - g2, b1 - b2);
+		return (fabsf((r1 - r2)) + fabsf((g1 - g2)) + fabsf((b1 - b2)))/2;
+		//return r1 + r2 + g1 + g2 + b1 + b2;
 	}
 };
 
